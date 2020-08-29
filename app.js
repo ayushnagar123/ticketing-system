@@ -2,12 +2,11 @@ require('dotenv').config()
 require('./config/mongoose')
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var {error} = require('./app/utils/error_handler');
 var {response} = require('./app/utils/response_handler');
-var ticketRouter = require('./app/routes/ticket');
+var ticketRouter = require('./app/routes/tickets');
 var usersRouter = require('./app/routes/users');
 
 var app = express();
