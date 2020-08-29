@@ -3,6 +3,7 @@ require('./config/mongoose')
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
+var cors = require('cors');
 
 var {error} = require('./app/utils/error_handler');
 var {response} = require('./app/utils/response_handler');
@@ -11,6 +12,7 @@ var usersRouter = require('./app/routes/users');
 
 var app = express();
 
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

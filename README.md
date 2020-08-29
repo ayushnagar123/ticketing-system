@@ -4,6 +4,22 @@ Ticketing System is a movie theater based ticket management system created for Z
 ### Hosting link
 https://ticketing-system-api.herokuapp.com
 
+### Features
+- [X] Signup user with phone number.
+- [X] Login with phone number and password in body.
+- [X] Login with token if saved in cache and passed in header along with phone number in body.
+- [X] Login with refresh token by assigning new token if refresh token is passed successfully in header along with phone number in body.
+- [X] Unauthorize login if non of the token,refresh token and password is provided along with phone number for authentication.
+- [X] Bycrypting password for secure storage of login credentials.
+- [X] Forbidding login in case of unregistered phone number.
+- [ ] Bad request in case of input field validation are incorrect.
+- [ ] Create a ticket using name and phone number and timing.
+- [ ] Update a ticket using name and phone number and timing.
+- [ ] Delete a ticket using name and phone number and timing.
+- [ ] Display all ticket using name and phone number and timing.
+- [ ] Expire a ticket after 8 hours.
+
+
 ### How to Setup?
 **Step 1:- Install nodejs**
 * Download and follow the steps in the given [link](https://nodejs.org/en/download/) to install nodejs.
@@ -94,3 +110,73 @@ After you have setup the project successfully, you shall have similar directory 
 * **app/utils/response_handler.js :-** These is helper file that defines the schema of the response in case of no error occurs.
 * **app/utils/status_handler.js :-** These is helper file that will defines the standard status messages for the stattus codes.
 * **config/mongoose.js :-** These is middleware that will run before the the server start to connect the mongodb databse to the server.
+
+### Api Documentation
+<table>
+    <tr>
+        <th>Method</th>
+        <th>API</th>
+        <th>Header</th>
+        <th>Request</th>
+        <th>Response</th>
+    </tr>
+    <tr>
+        <td>POST</td>
+        <td>/users/signup</td>
+        <td>
+            {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"Content-type":"application/json",<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"Access-Control-Allow-Origin":"*",<br/>
+            }
+        </td>
+        <td>
+            {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"name":String,<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"phoneNumber":String,<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"password":String
+            <br/>}
+        </td>
+        <td>
+        {<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"status":201,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"statusMessage":"Created",<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"message":"User created successfully",<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"data":{<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"token":String,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"refreshToken":String,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;}
+        <br/>}
+        </td>
+    </tr>
+    <tr>
+        <td>POST</td>
+        <td>/users/login</td>
+        <td>
+            {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"Content-type":"application/json",<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"Access-Control-Allow-Origin":"*",<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"token":String,<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"refreshtoken":String<br/>
+            }
+        </td>
+        <td>
+            {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"phoneNumber":String,<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"password":String
+            <br/>}
+        </td>
+        <td>
+        {<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"status":200,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"statusMessage":"Ok",<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"message":"Loged in successfully",<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"data":{<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"phoneNumber":String,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name":String,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"token":String,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"refreshToken":String,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;}
+        <br/>}
+        </td>
+    </tr>
+</table>

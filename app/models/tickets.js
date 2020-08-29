@@ -2,12 +2,17 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var TicketSchema = new Schema({
-        a_string: String,
-         a_date: Date
+        owener:{type:String},
+        hall:{type:Number},
+        row:{type:Number},
+        column:{type:Number},
+        date:{type:Date},
+        booking:{type:Date},
+        payment:{type:Boolean,default:false},
+        payementType:{type:String,default:"Cash"},
+        expired:{type:Boolean,default:false}
 });
-// Compile model from schema
+
 var TicketModel = mongoose.model('tickets', TicketSchema );
 
-module.exports ={
-    TicketModel
-}
+module.exports = TicketModel;
