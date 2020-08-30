@@ -1,3 +1,8 @@
+<img alt="AppVeyor" src="https://img.shields.io/appveyor/build/ayushnagar123/ticketing-system">
+<img alt="Bitbucket open issues" src="https://img.shields.io/bitbucket/issues-raw/ayushnagar123/ticketing-system">
+<img alt="Website" src="https://img.shields.io/website?url=https%3A%2F%2Fticketing-system-api.herokuapp.com%2F">
+<img alt="GitHub" src="https://img.shields.io/github/license/ayushnagar123/ticketing-system">
+
 # Ticketing-system
 Ticketing System is a movie theater based ticket management system created for Zomentum placement hiering assignment.
 
@@ -12,12 +17,14 @@ https://ticketing-system-api.herokuapp.com
 - [X] Unauthorize login if non of the token,refresh token and password is provided along with phone number for authentication.
 - [X] Bycrypting password for secure storage of login credentials.
 - [X] Forbidding login in case of unregistered phone number.
-- [ ] Bad request in case of input field validation are incorrect.
+- [X] Bad request in case of input field validation are incorrect.
 - [ ] Create a ticket using name and phone number and timing.
 - [ ] Update a ticket using name and phone number and timing.
 - [ ] Delete a ticket using name and phone number and timing.
 - [ ] Display all ticket using name and phone number and timing.
 - [ ] Expire a ticket after 8 hours.
+- [X] Create a theater hall authenticting admin rights.
+- [X] Get Vacant seats in all halls.
 
 
 ### How to Setup?
@@ -176,6 +183,67 @@ After you have setup the project successfully, you shall have similar directory 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"token":String,<br/>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"refreshToken":String,<br/>
         &nbsp;&nbsp;&nbsp;&nbsp;}
+        <br/>}
+        </td>
+    </tr>
+    <tr>
+        <td>POST</td>
+        <td>/halls/create</td>
+        <td>
+            {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"Content-type":"application/json",<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"Access-Control-Allow-Origin":"*",<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"token":String,<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"refreshtoken":String<br/>
+            }
+        </td>
+        <td>
+            {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"timing":[{type:String}],<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"row":Number<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"column":Number<br/>
+            <br/>}
+        </td>
+        <td>
+        {<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"status":200,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"statusMessage":"Ok",<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"message":"Loged in successfully",<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"data":{[<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"hallNumber":String,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"timing":[{type:String}],<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"vacactSeats":[{type:Number}],<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"row":Number,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"column":Number,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;]}
+        <br/>}
+        </td>
+    </tr>
+    <tr>
+        <td>GET</td>
+        <td>/halls/getVacantSeats</td>
+        <td>
+            {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"Content-type":"application/json",<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"Access-Control-Allow-Origin":"*",<br/>
+            }
+        </td>
+        <td>
+            {
+            <br/>}
+        </td>
+        <td>
+        {<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"status":200,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"statusMessage":"Ok",<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"message":"Loged in successfully",<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"data":{[<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"hallNumber":String,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"timing":[{type:String}],<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"vacactSeats":[{type:Number}],<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"row":Number,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"column":Number,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;]}
         <br/>}
         </td>
     </tr>

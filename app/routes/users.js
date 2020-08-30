@@ -25,33 +25,49 @@ router.get(
 router.post(
   '/signup',
   function (req,res,next) {
-    var {name,phoneNumber,password} = req.body;
+    var {name,phoneNumber,password,admin} = req.body;
     var token = tokgen.generate();
     var refreshToken = tokgen2.generate();
-    
-    var data = {
-      name,
-      phoneNumber,
-      password,
-      token,
-      refreshToken
-    };
-    
-    var newUser = new Users(data);
-    console.log(newUser);
-    newUser.save();
-    
-    res.send(
-      response(
-        201,
-        'User created successfully',
-        {
-          token,
-          refreshToken
-        }
+    if(phoneNumber==undefined){
+      console.log("test 1");
+      res.send(error(400,"phoneNumber required"))
+    }
+    else if(name==undefined){
+        console.log("test 2");
+        res.send(error(400,"name required"))
+    }
+    else if(password===undefined){
+        console.log("test 3");
+        res.send(error(400,"password required"))
+    }
+    else{
+      if(admin===undefined){
+        admin=false;
+      }
+      var data = {
+        name,
+        phoneNumber,
+        password,
+        token,
+        refreshToken,
+        admin
+      };
+      
+      var newUser = new Users(data);
+      console.log(newUser);
+      newUser.save()
+      
+      res.send(
+        response(
+          201,
+          'User created successfully',
+          {
+            token,
+            refreshToken
+          }
+        )
       )
-    )
-
+    }
   }
 )
 

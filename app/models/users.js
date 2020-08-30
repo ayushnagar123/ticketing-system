@@ -12,6 +12,7 @@ var UsersSchema = new Schema({
     name: String,
     phoneNumber: String,
     password: String,
+    admin:Boolean,
     token:String,
     refreshToken: String
 });
@@ -58,14 +59,12 @@ UsersSchema.statics.findByCredentials = async (data) => {
 
 UsersSchema.pre('save', async function (next) {
     const user = this
-    if(user.password===undefined){
-        return error(400,"password required")
-    }
+    
     if (user.isModified('password')) {
+        console.log("test 4");
       user.password = await bcrypt.hash(user.password, saltRounds)
+      next()
     }
-  
-    next()
   })
 // Compile model from schema
 var UsersModel = mongoose.model('users', UsersSchema );

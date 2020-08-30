@@ -7,6 +7,8 @@ var cors = require('cors');
 
 var {error} = require('./app/utils/error_handler');
 var {response} = require('./app/utils/response_handler');
+
+var showRouter = require('./app/routes/show');
 var ticketRouter = require('./app/routes/tickets');
 var usersRouter = require('./app/routes/users');
 
@@ -21,6 +23,7 @@ app.get('/', function (req, res) {
   res.send(response(200,'Welcome to PVR Ticketing portal!'))
 })
 
+app.use('/shows', showRouter);
 app.use('/tickets', ticketRouter);
 app.use('/users', usersRouter);
 
