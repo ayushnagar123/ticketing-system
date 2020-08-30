@@ -188,7 +188,7 @@ After you have setup the project successfully, you shall have similar directory 
     </tr>
     <tr>
         <td>POST</td>
-        <td>/halls/create</td>
+        <td>/shows/create</td>
         <td>
             {<br/>
                 &nbsp;&nbsp;&nbsp;&nbsp;"Content-type":"application/json",<br/>
@@ -199,9 +199,8 @@ After you have setup the project successfully, you shall have similar directory 
         </td>
         <td>
             {<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;"timing":[{type:String}],<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;"row":Number<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;"column":Number<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"date":Date,<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"hallNumber":Number<br/>
             <br/>}
         </td>
         <td>
@@ -210,26 +209,37 @@ After you have setup the project successfully, you shall have similar directory 
         &nbsp;&nbsp;&nbsp;&nbsp;"statusMessage":"Ok",<br/>
         &nbsp;&nbsp;&nbsp;&nbsp;"message":"Loged in successfully",<br/>
         &nbsp;&nbsp;&nbsp;&nbsp;"data":{[<br/>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"hallNumber":String,<br/>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"timing":[{type:String}],<br/>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"vacactSeats":[{type:Number}],<br/>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"row":Number,<br/>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"column":Number,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"showNumber":Number,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"hallNumber":Number,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"timing":Date,<br/>
         &nbsp;&nbsp;&nbsp;&nbsp;]}
         <br/>}
         </td>
     </tr>
     <tr>
-        <td>GET</td>
-        <td>/halls/getVacantSeats</td>
+        <td>POST</td>
+        <td>/tickets/create</td>
         <td>
             {<br/>
                 &nbsp;&nbsp;&nbsp;&nbsp;"Content-type":"application/json",<br/>
                 &nbsp;&nbsp;&nbsp;&nbsp;"Access-Control-Allow-Origin":"*",<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"token":String,<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"refreshtoken":String<br/>
             }
         </td>
         <td>
-            {
+            {<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;"name":String<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;"phoneNumber":String<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;"date":{<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"day":Number,<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"month":Number,<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"year":Number,<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"hours":Number,<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"minutes":Number<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;"people":Number<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;"hallNumber":Number<br/>
             <br/>}
         </td>
         <td>
@@ -238,11 +248,9 @@ After you have setup the project successfully, you shall have similar directory 
         &nbsp;&nbsp;&nbsp;&nbsp;"statusMessage":"Ok",<br/>
         &nbsp;&nbsp;&nbsp;&nbsp;"message":"Loged in successfully",<br/>
         &nbsp;&nbsp;&nbsp;&nbsp;"data":{[<br/>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"hallNumber":String,<br/>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"timing":[{type:String}],<br/>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"vacactSeats":[{type:Number}],<br/>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"row":Number,<br/>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"column":Number,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"hallNumber":Number,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"timing":Date,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"seats":[{type:Number}],<br/>
         &nbsp;&nbsp;&nbsp;&nbsp;]}
         <br/>}
         </td>

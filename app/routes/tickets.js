@@ -48,7 +48,6 @@ router.post(
           booking:new Date(),
           date:m,
           people:people,
-          seats:[],
           hallNumber:hallNumber
         }
         console.log(data)
@@ -66,16 +65,11 @@ router.post(
       ],(err,result)=>{
         var occupied;
         if(err) throw err;
-        console.log("result=",result);
         if(result.length===0){occupied=0;}
         else{
           occupied=result[0].occupied;
         }
-        console.log(20-occupied);
         if(data.people<=20-occupied){
-          for(var i=occupied+1;i<=occupied+data.people;i++){
-            data.seats.push(i);
-          }
           var newTicket = new Ticket(data);
           newTicket.save((err, ticket)=>{
             if(err) throw err;
@@ -89,5 +83,51 @@ router.post(
     })
     .catch(err=>{throw err;})
   })
+
+router.patch(
+  '/',
+  function (req, res, next){
+    var {ticketId,phoneNumber,people,date,used} = req.query;
+    var {token,refreshtoken} = req.headers;
+    check.user(phoneNumber,token,refreshtoken)
+    .then(isUser=>{
+      if(isUser){
+        // if(people!==undefined)
+        Ticket.findOneAndUpdate({ticketId:ticketId,phoneNumber:phoneNumber},{people,date,used},{new:1},
+          (err,ticket)=>{
+            if(err) throw err;
+            res.send(response(200,"ticket updated successfully",ticket))
+          })
+      }
+      else{
+        res.send(error(403,"please login to update a seat"))
+      }
+    })
+    .catch(err=>{throw err;})
+  }
+)
+
+router.delete(
+  '/',
+  function (req, res, next){
+    var {ticketId,phoneNumber,people,date,used} = req.query;
+    var {token,refreshtoken} = req.headers;
+    check.user(phoneNumber,token,refreshtoken)
+    .then(isUser=>{
+      if(isUser){
+        // if(people!==undefined)
+        Ticket.findOneAndDelete({ticketId:ticketId,phoneNumber:phoneNumber},
+          (err,ticket)=>{
+            if(err) throw err;
+            res.send(response(200,"ticket deleted successfully",ticket))
+          })
+      }
+      else{
+        res.send(error(403,"please login to update a seat"))
+      }
+    })
+    .catch(err=>{throw err;})
+  }
+)
 
 module.exports = router;
