@@ -10,22 +10,23 @@ const check = require('../controllers/users')
 router.get(
   '/', 
   function(req, res, next) {
-  res.send(
-    response(
-      200,
-      'welcome to tickets portal',
-      {
-        name:"Ayush Nagar",
-        ticket:18371983
-      }
+  var {ticketId} = req.query;
+  Ticket.findOne({ticketId:ticketId},(err,ticket)=>{
+    if(err) throw err;
+    res.send(
+      response(
+        200,
+        'ticket data',
+        ticket
+      )
     )
-  )
+  })
 });
 
 router.post(
   '/create',
   function(req, res, next){
-    var {date,people,phoneNumber,name,hallNumber} = req.body;
+    var {date,showNumber,people,phoneNumber,name,hallNumber} = req.body;
     var {token,refreshtoken} = req.headers;
     moment.tz("Asia/Kolkata");
     var schedule = new Date();
@@ -47,6 +48,7 @@ router.post(
           phoneNumber: phoneNumber,
           booking:new Date(),
           date:m,
+          showNumber:showNumber,
           people:people,
           hallNumber:hallNumber
         }
@@ -87,13 +89,24 @@ router.post(
 router.patch(
   '/',
   function (req, res, next){
-    var {ticketId,phoneNumber,people,date,used} = req.query;
+    var {ticketId,phoneNumber,people,showNumber,date,hallNumber,used} = req.query;
     var {token,refreshtoken} = req.headers;
     check.user(phoneNumber,token,refreshtoken)
     .then(isUser=>{
       if(isUser){
-        // if(people!==undefined)
-        Ticket.findOneAndUpdate({ticketId:ticketId,phoneNumber:phoneNumber},{people,date,used},{new:1},
+        var data={};
+        if(people!==undefined){
+          data.people=people
+        }
+        if(date!==undefined){
+          data.showNumber=showNumber;
+          data.date = date;
+          data.hallNumber=hallNumber;
+        }
+        if(used!==undefined){
+          data.used=used;
+        }
+        Ticket.findOneAndUpdate({ticketId:ticketId,phoneNumber:phoneNumber},data,{new:1},
           (err,ticket)=>{
             if(err) throw err;
             res.send(response(200,"ticket updated successfully",ticket))
@@ -110,7 +123,7 @@ router.patch(
 router.delete(
   '/',
   function (req, res, next){
-    var {ticketId,phoneNumber,people,date,used} = req.query;
+    var {ticketId,phoneNumber} = req.query;
     var {token,refreshtoken} = req.headers;
     check.user(phoneNumber,token,refreshtoken)
     .then(isUser=>{

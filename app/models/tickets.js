@@ -5,11 +5,13 @@ var TicketSchema = new Schema({
         ticketId:{type:Number},
         owener:{type:String},
         phoneNumber:{type:String},
+        showNumber:{type:Number},
         hallNumber:{type:Number},
         date:{type:Date},
         booking:{type:Date},
         people:{type:Number},
-        used:{type:Boolean,default:false}
+        used:{type:Boolean,default:false},
+        expired:{type:Boolean,default:false}
 });
 
 TicketSchema.pre('save', async function(next) {

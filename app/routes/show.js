@@ -3,6 +3,7 @@ var router = express.Router();
 var {response} = require('../utils/response_handler')
 var {error} = require('../utils/error_handler');
 var Show = require('../models/show');
+var Ticket = require('../models/tickets');
 const { reset } = require('nodemon');
 const check = require('../controllers/users')
 const moment = require('moment-timezone')
@@ -54,7 +55,7 @@ router.post(
                     res.send(
                         response(
                             201,
-                            "Sh+ow created successfully",
+                            "Show created successfully",
                             newShow
                         )
                     );
@@ -81,12 +82,52 @@ router.get(
                     res.send(
                         response(
                             200,
-                            "Show Vacency data",
+                            "Show all tickets",
                             data
                         )
                     )
                 })
                 .catch(err=>res.send(error(500,err.message)))
+        // .catch(err=>res.send(error(500,"error occured while validating your permissions")))
+    }
+)
+
+router.get(
+    '/getAllTickets',
+    function (req, res, next){
+        var {showNumber} = req.query;
+        Ticket.find({showNumber:showNumber},{_id:0})
+            .then(data=>{
+                res.send(
+                response(
+                    200,
+                    "Show all tickets",
+                    data
+                )
+            )
+        })
+        .catch(err=>res.send(error(500,err.message)))
+        // .catch(err=>res.send(error(500,"error occured while validating your permissions")))
+    }
+)
+
+router.get(
+    '/upcomming',
+    function (req, res, next){
+        // var {showNumber} = req.query;
+        var now = new Date();
+        var now =moment(now);
+        Show.find({date:{$gt:now}},{_id:0})
+            .then(data=>{
+                res.send(
+                response(
+                    200,
+                    "Show Vacency data",
+                    data
+                )
+            )
+        })
+        .catch(err=>res.send(error(500,err.message)))
         // .catch(err=>res.send(error(500,"error occured while validating your permissions")))
     }
 )

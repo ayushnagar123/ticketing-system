@@ -18,11 +18,11 @@ https://ticketing-system-api.herokuapp.com
 - [X] Bycrypting password for secure storage of login credentials.
 - [X] Forbidding login in case of unregistered phone number.
 - [X] Bad request in case of input field validation are incorrect.
-- [ ] Create a ticket using name and phone number and timing.
-- [ ] Update a ticket using name and phone number and timing.
-- [ ] Delete a ticket using name and phone number and timing.
-- [ ] Display all ticket using name and phone number and timing.
-- [ ] Expire a ticket after 8 hours.
+- [X] Create a ticket using name and phone number and timing.
+- [X] Update a ticket using name and phone number and timing.
+- [X] Delete a ticket using name and phone number and timing.
+- [X] Display all ticket using name and phone number and timing.
+- [X] Expire a ticket after 8 hours.
 - [X] Create a theater hall authenticting admin rights.
 - [X] Get Vacant seats in all halls.
 
@@ -57,7 +57,7 @@ https://ticketing-system-api.herokuapp.com
 * **nodemon :-** nodemon will watch the files in the directory in which nodemon was started, and if any files change, nodemon will automatically restart your node application.
 * **dotenv :-** Dotenv module loads environment variables from a .env file into process.env
 * **debug :-** debug exposes a function; simply pass this function the name of your module, and it will return a decorated version of console.error for you to pass debug statements to.
-
+* **moment-timezone :-** Used in timezone based conversion.
 ### Directory structure
 After you have setup the project successfully, you shall have similar directory structure.
 ```
@@ -117,6 +117,15 @@ After you have setup the project successfully, you shall have similar directory 
 * **app/utils/response_handler.js :-** These is helper file that defines the schema of the response in case of no error occurs.
 * **app/utils/status_handler.js :-** These is helper file that will defines the standard status messages for the stattus codes.
 * **config/mongoose.js :-** These is middleware that will run before the the server start to connect the mongodb databse to the server.
+
+### Important Points
+* Refresh token is used to get new token with which user can have access to the data once he logs in and has valid token and refresh token.
+* Only Admin can create a new show.
+* Tickets get expired automatically after 8 hours of show start time using cron jobs which runs in every 30 minutes.
+* Users can update delete the token.
+* If user does not have non of the refresh token and token the user will need to login again.
+* User can see the ticket details using ticket id.
+* User can see all the ticket for the show.
 
 ### Api Documentation
 <table>
@@ -240,6 +249,48 @@ After you have setup the project successfully, you shall have similar directory 
             &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
             &nbsp;&nbsp;&nbsp;&nbsp;"people":Number<br/>
             &nbsp;&nbsp;&nbsp;&nbsp;"hallNumber":Number<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;"showNumber":Number<br/>
+            <br/>}
+        </td>
+        <td>
+        {<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"status":200,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"statusMessage":"Ok",<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"message":"Loged in successfully",<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"data":{[<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"hallNumber":Number,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"showNumber":Number,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"timing":Date,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"people":Number<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;]}
+        <br/>}
+        </td>
+    </tr>
+    <tr>
+        <td>PATCH</td>
+        <td>/tickets</td>
+        <td>
+            {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"Content-type":"application/json",<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"Access-Control-Allow-Origin":"*",<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"token":String,<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"refreshtoken":String<br/>
+            }
+        </td>
+        <td>
+            {<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;"ticketId":Number<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;"phoneNumber":String<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;"date":{<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"day":Number,<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"month":Number,<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"year":Number,<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"hours":Number,<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"minutes":Number<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;"people":Number<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;"hallNumber":Number<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;"showNumber":Number<br/>
             <br/>}
         </td>
         <td>
@@ -250,9 +301,69 @@ After you have setup the project successfully, you shall have similar directory 
         &nbsp;&nbsp;&nbsp;&nbsp;"data":{[<br/>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"hallNumber":Number,<br/>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"timing":Date,<br/>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"seats":[{type:Number}],<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"people":Number,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;]}
+        <br/>}
+        </td>
+    </tr>
+    <tr>
+        <td>DELETE</td>
+        <td>/tickets</td>
+        <td>
+            {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"Content-type":"application/json",<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"Access-Control-Allow-Origin":"*",<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"token":String,<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"refreshtoken":String<br/>
+            }
+        </td>
+        <td>
+            {<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;"ticketId":Number<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;"phoneNumber":String
+            <br/>}
+        </td>
+        <td>
+        {<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"status":200,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"statusMessage":"Ok",<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"message":"Loged in successfully",<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"data":{[<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"hallNumber":Number,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"timing":Date,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"people":Number,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;]}
+        <br/>}
+        </td>
+    </tr>
+    <tr>
+        <td>GET</td>
+        <td>/tickets</td>
+        <td>
+            {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"Content-type":"application/json",<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"Access-Control-Allow-Origin":"*",<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"token":String,<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;"refreshtoken":String<br/>
+            }
+        </td>
+        <td>
+            {<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;"ticketId":Number
+            <br/>}
+        </td>
+        <td>
+        {<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"status":200,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"statusMessage":"Ok",<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"message":"Loged in successfully",<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;"data":{[<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"hallNumber":Number,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"timing":Date,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"people":Number,<br/>
         &nbsp;&nbsp;&nbsp;&nbsp;]}
         <br/>}
         </td>
     </tr>
 </table>
+

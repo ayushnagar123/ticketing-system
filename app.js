@@ -1,5 +1,6 @@
 require('dotenv').config()
 require('./config/mongoose')
+require('./config/expireTickets');
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
