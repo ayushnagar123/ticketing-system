@@ -402,5 +402,5 @@ After you have setup the project successfully, you shall have similar directory 
 ![get all show images](https://drive.google.com/uc?export=view&id=11Otno2O7JkTfZMCpnL45i1kAzjFV-mME)
 
 
-**5. Get upcomming Shows**
+**6. Get upcomming Shows**
 ![get all show images](https://drive.google.com/uc?export=view&id=1ZKtOqCYle9hkFITIX_BT16_v-QID9GOb)
