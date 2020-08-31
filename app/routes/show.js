@@ -4,7 +4,7 @@ var {response} = require('../utils/response_handler')
 var {error} = require('../utils/error_handler');
 var Show = require('../models/show');
 var Ticket = require('../models/tickets');
-const { reset } = require('nodemon');
+// const { reset } = require('nodemon');
 const check = require('../controllers/users')
 const moment = require('moment-timezone')
 /* GET home page. */
