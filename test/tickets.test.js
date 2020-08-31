@@ -19,7 +19,6 @@ describe('Tickets', () => {
             .end((err, res) => {
                   res.should.have.status(200);
                   res.body.data.should.be.a('object');
-                //   res.body.data.length.should.be.eql(0);
               done();
             });
       });
@@ -52,9 +51,6 @@ describe('Tickets', () => {
                   res.should.have.status(200);
                   res.body.should.be.a('object');
                   res.body.message.should.be.a('String');
-                //   res.body.data.should.not.be.eql(0);
-                //   res.body.errors.should.have.property('pages');
-                //   res.body.errors.pages.should.have.property('kind').eql('required');
               done();
             });
       });
@@ -81,10 +77,7 @@ describe('Tickets', () => {
           .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
-                res.body.data.should.be.a('object');
-              //   res.body.data.should.not.be.eql(0);
-              //   res.body.errors.should.have.property('pages');
-              //   res.body.errors.pages.should.have.property('kind').eql('required');
+                res.body.message.should.be.a('String');
             done();
           });
     });

@@ -62,9 +62,6 @@ describe('Shows', () => {
                   res.should.have.status(200);
                   res.body.should.be.a('object');
                   res.body.data.should.be.a('object');
-                //   res.body.data.should.not.be.eql(0);
-                //   res.body.errors.should.have.property('pages');
-                //   res.body.errors.pages.should.have.property('kind').eql('required');
               done();
             });
       });

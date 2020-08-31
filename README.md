@@ -1,5 +1,6 @@
 [![Heroku App Status](http://heroku-shields.herokuapp.com/ticketing-system-api)](https://ticketing-system-api.herokuapp.com)
 <img alt="Website" src="https://img.shields.io/website?url=https%3A%2F%2Fticketing-system-api.herokuapp.com%2F">
+<img alt="GitHub language count" src="https://img.shields.io/github/languages/count/ayushnagar123/ticketing-system">
 
 # Ticketing-system
 Ticketing System is a movie theater based ticket management system created for Zomentum placement hiering assignment.
@@ -22,7 +23,7 @@ https://ticketing-system-api.herokuapp.com
 - [X] Display all ticket using name and phone number and timing.
 - [X] Expire a ticket after 8 hours.
 - [X] Create a theater hall authenticting admin rights.
-- [X] Get Vacant seats in all halls.
+- [X] Docker image created
 
 
 ### How to Setup?
@@ -46,7 +47,23 @@ https://ticketing-system-api.herokuapp.com
 * To test the project, you need to run the command ```npm run test```
 
 **Step 7:- Run the project**
-* To run the project, you need to run the command ```nodemon test```
+* To run the project, you need to run the command ```nodemon start```
+
+**Step 8 :- Create docker image**
+* build a docker image ```docker build -t ticketing-system```
+* run the command ```docker run -p 49160:3000 -d ticketing-system```
+* to setup environment variable ```docker run --env DATABASE_URL=mongodb://127.0.01:27017/ticket-system ticketing-system env | grep VAR```
+* to test the commaand run ```curl -i localhost:49160```
+```Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Content-Length: 80
+ETag: W/"50-cZkIpDrRGFvyMRP9XYpr8LNxngE"
+Date: Mon, 31 Aug 2020 03:16:19 GMT
+Connection: keep-alive
+
+{"status":200,"statusMessage":"OK","message":"Welcome to PVR Ticketing portal!"}
+```
+Means your setup is working.
 
 ### Package Description
 * **express :-** Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
@@ -78,10 +95,12 @@ After you have setup the project successfully, you shall have similar directory 
 |- config/
     - mongoose.js
 |- node_modules/
+- .dockerignore
 - .env
 - .env.development
 - .gitignore
 - app.js
+- Dockerfile
 - LICENSE
 - package.json
 - package.lock.json
