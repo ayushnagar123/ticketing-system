@@ -1,7 +1,5 @@
-<img alt="AppVeyor" src="https://img.shields.io/appveyor/build/ayushnagar123/ticketing-system">
-<img alt="Bitbucket open issues" src="https://img.shields.io/bitbucket/issues-raw/ayushnagar123/ticketing-system">
+[![Heroku App Status](http://heroku-shields.herokuapp.com/ticketing-system-api)](https://ticketing-system-api.herokuapp.com)
 <img alt="Website" src="https://img.shields.io/website?url=https%3A%2F%2Fticketing-system-api.herokuapp.com%2F">
-<img alt="GitHub" src="https://img.shields.io/github/license/ayushnagar123/ticketing-system">
 
 # Ticketing-system
 Ticketing System is a movie theater based ticket management system created for Zomentum placement hiering assignment.
