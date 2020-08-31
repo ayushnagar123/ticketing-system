@@ -20,10 +20,12 @@ https://ticketing-system-api.herokuapp.com
 - [X] Create a ticket using name and phone number and timing.
 - [X] Update a ticket using name and phone number and timing.
 - [X] Delete a ticket using name and phone number and timing.
+- [X] Not allowing more than 20 people to book ticket for a show.
+- [X] Update ticket as used ticked on entry.
 - [X] Display all ticket using name and phone number and timing.
 - [X] Expire a ticket after 8 hours.
 - [X] Create a theater hall authenticting admin rights.
-- [X] Docker image created
+- [X] Docker image created.
 
 
 ### How to Setup?
