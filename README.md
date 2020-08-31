@@ -384,3 +384,23 @@ After you have setup the project successfully, you shall have similar directory 
     </tr>
 </table>
 
+### API Screenshots
+**1. Create Ticket**
+
+![Create ticket](![image](https://drive.google.com/uc?export=view&id=1GkFZjPwb7HPuB-5KPsn7aoB5v_qyqHH_)
+
+**2. Update Ticket**
+![update link](https://drive.google.com/uc?export=view&id=1x631neKNXD4Ag3FvDyh7iquqw-UKsQny)
+
+**3. Get all tickets of a show**
+![get all show images](https://drive.google.com/uc?export=view&id=1O43f-pN1oqcACv9tz4BehGcTc_m6XNiZ)
+
+**4. Get ticket by id**
+![get all show images](https://drive.google.com/uc?export=view&id=1gt7KlHXzB1aHaki_9NTxRj0myzMetU1Q)
+
+**5. Create show**
+![get all show images](https://drive.google.com/uc?export=view&id=11Otno2O7JkTfZMCpnL45i1kAzjFV-mME)
+
+
+**5. Get upcomming Shows**
+![get all show images](https://drive.google.com/uc?export=view&id=1ZKtOqCYle9hkFITIX_BT16_v-QID9GOb)
