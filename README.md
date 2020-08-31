@@ -389,7 +389,7 @@ After you have setup the project successfully, you shall have similar directory 
 ### API Screenshots
 **1. Create Ticket**
 
-![Create ticket](![image](https://drive.google.com/uc?export=view&id=1GkFZjPwb7HPuB-5KPsn7aoB5v_qyqHH_)
+![Create ticket](https://drive.google.com/uc?export=view&id=1GkFZjPwb7HPuB-5KPsn7aoB5v_qyqHH_)
 
 **2. Update Ticket**
 ![update link](https://drive.google.com/uc?export=view&id=1x631neKNXD4Ag3FvDyh7iquqw-UKsQny)
